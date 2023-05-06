@@ -50,9 +50,13 @@ def opti():
     res = minimize(lsm_function, par, args=e_values, method='nelder-mead')
     print("Метод наименьших квадратов:", res.x)
     lsm_values = [res.x[0] * p + res.x[1] for p in points]
+    lsm_distance = max([abs(lsm_values[i] - c_values[i]) for i in range(20)])
+    print("max dist = ", lsm_distance)
     res = minimize(lmm_function, par, args=e_values, method='nelder-mead')
     print("Метод наименьших модулей:", res.x)
     lmm_values = [res.x[0] * p + res.x[1] for p in points]
+    lmm_distance = max([abs(lmm_values[i] - c_values[i]) for i in range(20)])
+    print("max dist = ", lmm_distance)
     plt.grid()
     plt.scatter(points, e_values, label='Выборка')
     plt.plot(points, c_values, label='Модель')
